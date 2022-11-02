@@ -485,4 +485,43 @@ function initTable() {
   }
 }
 
+function dataSet3(data){
+//    let parser = new DOMParser();
+//    const xml = parser.parseFromString(data, "application/xml");
+//    let parks = xml.querySelectorAll("item");
+	data.forEach((park) => {
+    let lng=park.lng;
+    let lnt=park.lnt;
+    let content ='<div style="width:150px;text-align:center;padding:6px 0;">'+'공원: '+ park.parkName +' 거리: '+park.distance+'Km </div>';
+    var coords = new kakao.maps.LatLng(lnt, lng);
+	// 결과값으로 받은 위치를 마커로 표시합니다
+    var marker = new kakao.maps.Marker({map: map,
+                  						position: coords
+                  						});
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new kakao.maps.InfoWindow({
+        content: content // 인포윈도우에 표시할 내용
+        
+    });
+    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+	// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    map.setCenter(coords);  
+	
+    });
+  }
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+
       

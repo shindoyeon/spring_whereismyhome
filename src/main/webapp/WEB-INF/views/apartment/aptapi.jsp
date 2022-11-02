@@ -60,6 +60,10 @@
               검색
             </button>
           </div>
+          <div class="form-group col-md-2">
+						<button type="button" id="park-btn"
+							class="btn btn-outline-primary" style="color: green">주변 공원 표시</button>
+		</div>
         </div>
     </div>
     
@@ -110,6 +114,22 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
     <script src="${root}/assets/js/aptapi.js"></script>
+    <script>
+	    document.querySelector("#park-btn").addEventListener("click", function () {
+    	var level = map.getLevel();
+    	var latlng = map.getCenter(); 
+        var message = '<p>지도 레벨은 ' + level + ' 이고</p>';
+        message += '<p>중심 좌표는 위도 ' + latlng.getLat() + ', 경도 ' + latlng.getLng() + '입니다</p>';
+        //console.log(message);
+        
+        let url = "${root}/park/getAllParks?lng="+latlng.getLng()+"&lat="+latlng.getLat();
+      	console.log(url);
+        fetch(url)
+        	.then((response) => response.json())
+        	.then((data) => dataSet3(data));
+        
+      });
+    </script>
 </body>
 
 </html>
