@@ -131,9 +131,8 @@
 			</tbody>
 		</table>
 	</div>
-	<form id="form-no-param" method="get" action="${root}/star">
-		<input type="hidden" id="act" name="act" value="deletestar"> <input
-			type="hidden" id="starno" name="starno" value="">
+	<form id="form-no-param" method="post" action="${root}/star/deletestar">
+		<input type="hidden" id="starno" name="starno" value="">
 	</form>
 	
 	
@@ -153,6 +152,7 @@
 		star.addEventListener("click", function () {
 		//alert(this.getAttribute("data-no"));
         document.querySelector("#starno").value = this.getAttribute("data-no");
+        console.log(document.querySelector("#starno").value);
         document.querySelector("#form-no-param").submit();
       });
     });
@@ -165,7 +165,7 @@
 		  let form = document.querySelector("#form-add");
 		  //console.log(form.querySelector("#dong").value);
           
-		  form.setAttribute("action", "${root}/star/addstar");
+		  form.setAttribute("action", "${root}/star/addstar?dongCode=${dongCode}");
           form.submit();
 	});
 	</script>

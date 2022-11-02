@@ -1,6 +1,7 @@
 package com.ssafy.apartment.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -21,8 +22,8 @@ public class StarServiceImpl implements StarService {
 	}
 	@Override
 	@Transactional
-	public void addStar(StarDto starDto) throws Exception {
-		apartmentMapper.addStar(starDto);
+	public void addStar(Map<String, String> map) throws Exception {
+		apartmentMapper.addStar(map);
 	}
 
 	@Override
