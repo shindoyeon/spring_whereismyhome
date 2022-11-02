@@ -17,15 +17,19 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ssafy.board.model.BoardDto;
 import com.ssafy.member.model.MemberDto;
 import com.ssafy.member.model.service.MemberService;
 import com.ssafy.member.model.service.MemberServiceImpl;
@@ -92,7 +96,8 @@ public class MemberController {
 					cookie.setMaxAge(0);
 				}
 				response.addCookie(cookie);
-				System.out.println("loginsuccess");
+				logger.debug("userrole : {}", memberDto.getUserRole());
+
 				return "index";
 			} else {
 				model.addAttribute("msg", "아이디 또는 비밀번호 확인 후 다시 로그인하세요!");
@@ -112,8 +117,41 @@ public class MemberController {
 	}
 
 	@GetMapping("/list")
-	public String list() {
-		return "redirect:/assets/list.html";
+	public String list(Model model) {
+		try {
+			model.addAttribute("users",memberService.listMember());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "/user/list";
+	}
+	
+	@GetMapping("/info")
+	public String info(Model model, HttpSession session) {		
+		try {
+			MemberDto memberDto = memberService.getMember(((MemberDto)(session.getAttribute("userinfo"))).getUserId());
+			logger.debug("memberDto info : {}", memberDto);
+			model.addAttribute("user",memberDto);
+			return "/user/info";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "회원 정보 수정 중 문제 발생!!!");
+			return "error/error";
+		}
+	}
+	
+	@PostMapping("/update")
+	public String update(@ModelAttribute MemberDto member, Model model, HttpSession session) {		
+		try {
+			logger.debug("update : {}", member);
+			memberService.updateMember(member);
+			logger.debug("memberDto info : {}", member);
+			return "redirect:/user/info";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "회원 정보 수정 중 문제 발생!!!");
+			return "error/error";
+		}
 	}
 
 }

@@ -22,27 +22,27 @@
           <h1 class="h3 mb-3 fw-normal">회원 정보 확인</h1>
   
           <div class="form-floating mb-1">
-            <input type="text" class="form-control" id="userid" name="userid" value="${user.userId}" readonly>
+            <input type="text" class="form-control" id="userid" name="userId" value="${user.userId}" readonly>
             <label for="userid">ID</label>
           </div>
           <div class="form-floating mb-1">
-            <input type="password" class="form-control" id="userpwd" name="userpwd" value="">
+            <input type="password" class="form-control" id="userpwd" name="userPwd" value="">
             <label for="userpwd">Password</label>
           </div>
           <div class="form-floating mb-1">
-            <input type="email" class="form-control" id="useremail" name="useremail" value="${user.userEmail}">
+            <input type="email" class="form-control" id="useremail" name="userEmail" value="${user.userEmail}">
             <label for="useremail">email</label>
           </div>
           <div class="form-floating mb-1">
-            <input type="text" class="form-control" id="username" name="username" value="${user.userName}">
+            <input type="text" class="form-control" id="username" name="userName" value="${user.userName}">
             <label for="username">name</label>
           </div>
           <div class="form-floating mb-1">
-            <input type="text" class="form-control" id="userphone" name="userphone" value="${user.userPhone}">
+            <input type="text" class="form-control" id="userphone" name="userPhone" value="${user.userPhone}">
             <label for="userphone">phone</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="userrole" name="userrole" value="${user.userRole}" readonly>
+            <input type="text" class="form-control" id="userrole" name="userRole" value="${user.userRole}" readonly>
             <label for="userrole">role</label>
           </div>
           <button class="w-100 btn btn-lg btn-primary mb-1" id="btn-update" type="button">정보 수정</button>
@@ -64,7 +64,7 @@
     <script>
 	  // 회원탈퇴   
       document.querySelector("#btn-delete").addEventListener("click", function () {
-    	location.href = "${root}/user?act=delete";
+    	location.href = "${root}/user/delete";
       });
    // 회원정보수정  
       document.querySelector("#btn-update").addEventListener("click", function () {
@@ -76,7 +76,7 @@
               return;
             } else {
               let form = document.querySelector("#form-update");
-              form.setAttribute("action", "${root}/user");
+              form.setAttribute("action", "${root}/user/update");
               form.submit();
             }
       });

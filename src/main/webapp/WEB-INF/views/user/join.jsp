@@ -20,28 +20,28 @@
           <h1 class="h3 mb-3 fw-normal" style="text-align: center;">Sign Up</h1>
   
           <div class="form-floating mb-1">
-            <input type="text" class="form-control" id="userid" name="userid" placeholder="ID">
+            <input type="text" class="form-control" id="userid" name="userId" placeholder="ID">
             <label for="userid">ID</label>
           </div>
           <div id="idcheck-result"></div>
           <div class="form-floating mb-1">
-            <input type="text" class="form-control" id="username" name="username" placeholder="name">
+            <input type="text" class="form-control" id="username" name="userName" placeholder="name">
             <label for="username">name</label>
           </div>
           <div class="form-floating mb-1">
-            <input type="password" class="form-control" id="userpwd" name="userpwd" placeholder="Password">
+            <input type="password" class="form-control" id="userpwd" name="userPwd" placeholder="Password">
             <label for="userpwd">Password</label>
           </div>
           <div class="form-floating mb-1">
-            <input type="email" class="form-control" id="useremail" name="useremail" placeholder="email">
+            <input type="email" class="form-control" id="useremail" name="userEmail" placeholder="email">
             <label for="useremail">email</label>
           </div>
           <div class="form-floating mb-1">
-            <input type="text" class="form-control" id="userphone" name="userphone" placeholder="phone">
+            <input type="text" class="form-control" id="userphone" name="userPhone" placeholder="phone">
             <label for="userphone">phone</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="userrole" name="userrole" placeholder="role">
+            <input type="text" class="form-control" id="userrole" name="userRole" placeholder="role">
             <label for="userrole">role</label>
           </div>
           <button class="w-100 btn btn-lg btn-primary" id="btn-join" type="button">Sign Up</button>
@@ -66,7 +66,7 @@
     		 resultDiv.textContent = "아이디는 6자 이상 16자 이하 입니다.";
     		 isUseId = false;
     	 } else {
-			fetch("${root}/user?act=idcheck&userid=" + userid)
+			fetch("${root}/user/idcheck/"+userid)
 				.then(response => response.text())
 				.then(data => {
 					console.log(data);
@@ -98,7 +98,7 @@
           return;
         } else {
           let form = document.querySelector("#form-join");
-          form.setAttribute("action", "${root}/user");
+          form.setAttribute("action", "${root}/user/join");
           form.submit();
         }
       });
