@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/common/header.jsp" %>
+<%@ include file="../common/header.jsp" %>
 <div style="height: 70px"></div>
-<c:if test="${empty userinfo}">
+<%-- <c:if test="${empty userinfo}">
 	<script type="text/javascript">
 		alert("로그인 후 이용 가능한 페이지입니다.");
 		location.href = "${root}/user?act=mvlogin";
 	</script>
-</c:if>
+</c:if> --%>
 <c:if test="${empty article}">
 	<script type="text/javascript">
 		alert("글이 삭제되었거나 정상적인 URL 접근이 아닙니다.");
-		location.href = "${root}/board?act=list&pgno=1&key=&word=";
+		location.href = "${root}/board/list?pgno=1&key=&word=";
 	</script>
 </c:if>
       <div class="row justify-content-center">
@@ -46,14 +46,14 @@
               <button type="button" id="btn-list" class="btn btn-outline-primary mb-3">
                 글목록
               </button>
-            <c:if test="${userinfo.userRole eq 'admin'}">
+            <%-- <c:if test="${userinfo.userRole eq 'admin'}"> --%>
               <button type="button" id="btn-mv-modify" class="btn btn-outline-success mb-3 ms-1">
                 글수정
               </button>
               <button type="button" id="btn-delete" class="btn btn-outline-danger mb-3 ms-1">
                 글삭제
               </button>
-            </c:if>  
+            <%-- </c:if>   --%>
             </div>
           </div>
         </div>
@@ -76,14 +76,14 @@
       document.querySelector("#btn-list").addEventListener("click", function () {
     	  let form = document.querySelector("#form-param");
     	  document.querySelector("#act").value = "list";
-    	  form.setAttribute("action", "${root}/board");
+    	  form.setAttribute("action", "${root}/board/list");
           form.submit();
       });
       if(document.querySelector("#btn-mv-modify")){
       document.querySelector("#btn-mv-modify").addEventListener("click", function () {
     	  let form = document.querySelector("#form-no-param");
     	  document.querySelector("#nact").value = "mvmodify";
-    	  form.setAttribute("action", "${root}/board");
+    	  form.setAttribute("action", "${root}/board/mvmodify");
           form.submit();
       });}
       
@@ -92,12 +92,12 @@
        	if(confirm("정말 삭제하시겠습니까?")) {
        	  let form = document.querySelector("#form-no-param");
       	  document.querySelector("#nact").value = "delete";
-      	  form.setAttribute("action", "${root}/board");
+      	  form.setAttribute("action", "${root}/board/delete");
           form.submit();
        	}
       });}
     </script>
-<%@ include file="/common/footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>

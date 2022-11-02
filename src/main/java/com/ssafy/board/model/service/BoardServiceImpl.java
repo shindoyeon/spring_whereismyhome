@@ -1,64 +1,73 @@
 package com.ssafy.board.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ssafy.board.model.BoardDto;
-import com.ssafy.board.model.dao.BoardDao;
-import com.ssafy.board.model.dao.BoardDaoImpl;
+import com.ssafy.board.model.mapper.BoardMapper;
 import com.ssafy.util.SizeConstant;
 
+@Service
 public class BoardServiceImpl implements BoardService {
 	
-	private static BoardService boardService = new BoardServiceImpl();
-	private BoardDao boardDao;
-	
-	private BoardServiceImpl() {
-		boardDao = BoardDaoImpl.getBoardDao();
-	}
+	private BoardMapper boardMapper;
 
-	public static BoardService getBoardService() {
-		return boardService;
+	@Autowired
+	public BoardServiceImpl(BoardMapper boardMapper) {
+		this.boardMapper = boardMapper;
 	}
 
 	@Override
-	public int writeArticle(BoardDto boardDto) throws Exception {
-		return boardDao.writeArticle(boardDto);
+	@Transactional
+	public void writeArticle(BoardDto boardDto) throws Exception {
+		boardMapper.writeArticle(boardDto);
 	}
 
 	@Override
 	public List<BoardDto> listArticle(Map<String, String> map) throws Exception {
-		int pgno = Integer.parseInt(map.get("pgno"));
-		int spl = SizeConstant.SIZE_PER_LIST;
-		int start = (pgno - 1) * spl;
-		map.put("start", start + "");
-		map.put("spl", spl + "");
-		return boardDao.listArticle(map);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("key",map.get("key").equals("userid")?"b.user_id":map.get("key"));
+		System.out.println(param);
+		param.put("word", map.get("word"));
+		int pgNo = Integer.parseInt(map.get("pgno"));
+		int start = pgNo * SizeConstant.LIST_SIZE - SizeConstant.LIST_SIZE;
+		param.put("start", start);
+		param.put("listsize", SizeConstant.LIST_SIZE);
+		
+		return boardMapper.listArticle(param);
 	}
 
 	@Override
 	public BoardDto getArticle(int articleNo) throws Exception {
-		return boardDao.getArticle(articleNo);
+		return boardMapper.getArticle(articleNo);
 	}
 
 	@Override
+	@Transactional
 	public void updateHit(int articleNo) throws Exception {
-		boardDao.updateHit(articleNo);
+		boardMapper.updateHit(articleNo);
 	}
 
 	@Override
+	@Transactional
 	public void modifyArticle(BoardDto boardDto) throws Exception {
-		boardDao.modifyArticle(boardDto);
+		boardMapper.modifyArticle(boardDto);
 	}
 
 	@Override
+	@Transactional
 	public void deleteArticle(int articleNo) throws Exception {
-		boardDao.deleteArticle(articleNo);
+		boardMapper.deleteArticle(articleNo);
 	}
 
 	@Override
 	public int totalArticleCount(Map<String, String> map) throws Exception {
-		return boardDao.totalArticleCount(map);
+		return boardMapper.totalArticleCount(map);
 	}
 	
 

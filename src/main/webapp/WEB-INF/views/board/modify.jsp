@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/common/header.jsp" %>
+<%@ include file="../common/header.jsp" %>
 <div style="height: 70px"></div>
-<c:if test="${empty userinfo}">
+<%-- <c:if test="${empty userinfo}">
 	<script type="text/javascript">
 		alert("로그인 후 이용 가능한 페이지입니다.");
 		location.href = "${root}/user?act=mvlogin";
 	</script>
-</c:if>
+</c:if> --%>
 <c:if test="${empty article}">
 	<script type="text/javascript">
 		alert("정상적인 URL 접근이 아닙니다.");
@@ -22,9 +22,9 @@
         <div class="col-lg-8 col-md-10 col-sm-12">
           <form id="form-modify" method="POST" action="">
             <input type="hidden" name="act" value="modify">
-            <input type="hidden" name="pgno" value="${qs.pgno}">
-	        <input type="hidden" name="key" value="${qs.key}">
-	        <input type="hidden" name="word" value="${qs.word}">
+            <input type="hidden" name="pgno" value="${param.pgno}">
+	        <input type="hidden" name="key" value="${param.key}">
+	        <input type="hidden" name="word" value="${param.word}">
             <input type="hidden" name="articleno" value="${article.articleNo}">
             <div class="mb-3">
               <label for="subject" class="form-label">제목 : </label>
@@ -58,21 +58,22 @@ ${article.content}
           return;
         } else {
           let form = document.querySelector("#form-modify");
-          form.setAttribute("action", "${root}/board");
+          form.setAttribute("method", "POST");
+          form.setAttribute("action", "${root}/board/modify");
           form.submit();
         }
       });
       
       document.querySelector("#btn-list").addEventListener("click", function () {
       	if(confirm("취소를 하시면 작성중인 글은 삭제됩니다.\n취소하시겠습니까?")) {
-    		  let form = document.querySelector("#form-param");
-         	  document.querySelector("#act").value = "list";
-         	  form.setAttribute("action", "${root}/board");
+    		  let form = document.querySelector("#form-modify");
+         	  form.setAttribute("method", "GET");
+         	  form.setAttribute("action", "${root}/board/list?pgno=1&key=&word=");
             form.submit();
      	    }
         });
     </script>
-<%@ include file="/common/footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>

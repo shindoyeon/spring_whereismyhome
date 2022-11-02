@@ -27,7 +27,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="${root}/board?act=list">공지사항</a>
+            <a class="nav-link" aria-current="page" href="${root}/board/list?pgno=1&key=&word=">공지사항</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="${root}/house/mvaptapi">아파트 매매정보</a>
