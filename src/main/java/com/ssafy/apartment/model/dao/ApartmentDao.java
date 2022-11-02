@@ -8,9 +8,7 @@ import com.ssafy.apartment.model.StarDto;
 public interface ApartmentDao {
 
 	void addStar(StarDto starDto) throws SQLException;
-
 	List<StarDto> listStar(String userid) throws SQLException;
-
 	void deleteStar(int starNo) throws SQLException;
 	
 }

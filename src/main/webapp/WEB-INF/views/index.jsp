@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../common/header.jsp" %>
+<%@include file="./common/header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +27,7 @@
     </div>
   </div>
   <!-- 중앙 content end -->
- <%@include file="../common/footer.jsp" %>
+ <%@include file="./common/footer.jsp" %> 
   
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

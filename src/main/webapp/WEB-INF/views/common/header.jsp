@@ -30,7 +30,7 @@
             <a class="nav-link" aria-current="page" href="${root}/board?act=list">공지사항</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="${root}/apartment?act=mvaptapi">아파트 매매정보</a>
+            <a class="nav-link" aria-current="page" href="${root}/house/mvaptapi">아파트 매매정보</a>
           </li>
           
           <c:if test="${userinfo.userRole eq 'admin' }">    
@@ -58,13 +58,13 @@
             <a class="nav-link"><strong>${userinfo.userName}</strong> (${userinfo.userId})님</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="${root}/user?act=logout">로그아웃</a>
+            <a class="nav-link" aria-current="page" href="${root}/user/logout">로그아웃</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="btn-info" aria-current="page" href="${root}/user?act=info">회원정보</a>
+            <a class="nav-link" id="btn-info" aria-current="page" href="${root}/user/info">회원정보</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="${root}/apartment?act=liststar">관심지역</a>
+            <a class="nav-link" aria-current="page" href="${root}/star/liststar">관심지역</a>
           </li>
         </ul>
         </c:if>

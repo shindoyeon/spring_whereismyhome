@@ -5,10 +5,10 @@ public class StarDto {
 	private int starNo;
 	private String dongCode;
 	private String dealYM;
+	private String userId;
 	private String sidoName;
 	private String gugunName;
 	private String dongName;
-	private String userId;
 	
 	public int getStarNo() {
 		return starNo;

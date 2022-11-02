@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/common/header.jsp"%>
+<%@ include file="../common/header.jsp"%>
 
 <c:if test="${empty userinfo}">
 	<script type="text/javascript">
@@ -131,7 +131,7 @@
 			</tbody>
 		</table>
 	</div>
-	<form id="form-no-param" method="get" action="${root}/apartment">
+	<form id="form-no-param" method="get" action="${root}/star">
 		<input type="hidden" id="act" name="act" value="deletestar"> <input
 			type="hidden" id="starno" name="starno" value="">
 	</form>
@@ -139,7 +139,7 @@
 	
 </div>
 
-<%@ include file="/common/footer.jsp"%>
+<%@ include file="../common/footer.jsp"%>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -165,7 +165,7 @@
 		  let form = document.querySelector("#form-add");
 		  //console.log(form.querySelector("#dong").value);
           
-		  form.setAttribute("action", "${root}/apartment");
+		  form.setAttribute("action", "${root}/star");
           form.submit();
 	});
 	</script>

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ssafy.apartment.model.HouseDeal;
+import com.ssafy.apartment.model.HouseDealDto;
 import com.ssafy.util.DBUtil;
 
 public class HouseDealDaoImpl implements IHouseDealDao {
@@ -23,21 +23,21 @@ public class HouseDealDaoImpl implements IHouseDealDao {
     }
 
     @Override
-    public List<HouseDeal> list() throws SQLException {
+    public List<HouseDealDto> list() throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append(" select no,aptCode,dealAmount,dealYear,dealMonth,dealDay,area,floor ");
         sql.append(" from housedeal order by no ");
         Connection conn = null;
         PreparedStatement psmt = null;
         ResultSet rs = null;
-        List<HouseDeal> housedeals = new ArrayList<>();
+        List<HouseDealDto> housedeals = new ArrayList<>();
         try {
             conn = db.getConnection();
             psmt = conn.prepareStatement(sql.toString());
             rs = psmt.executeQuery();
             while (rs.next()) {
                 int i = 1;
-                HouseDeal housedeal = new HouseDeal(
+                HouseDealDto housedeal = new HouseDealDto(
                         rs.getString(i++),
                         rs.getString(i++),
                         rs.getString(i++),
@@ -59,7 +59,7 @@ public class HouseDealDaoImpl implements IHouseDealDao {
     }
     
     @Override
-    public List<HouseDeal> listAll(String dong, String ym, String aptName) throws SQLException {
+    public List<HouseDealDto> listAll(String dong, String ym, String aptName) throws SQLException {
     	
     	String y="";
     	String m="";
@@ -106,7 +106,7 @@ public class HouseDealDaoImpl implements IHouseDealDao {
         PreparedStatement psmt = null;
         ResultSet rs = null;
         
-        List<HouseDeal> housedeals = new ArrayList<>();
+        List<HouseDealDto> housedeals = new ArrayList<>();
         
         try {
             conn = db.getConnection();
@@ -131,7 +131,7 @@ public class HouseDealDaoImpl implements IHouseDealDao {
             rs = psmt.executeQuery();
             while (rs.next()) {
                 int i = 1;
-                HouseDeal housedeal = new HouseDeal(
+                HouseDealDto housedeal = new HouseDealDto(
                         rs.getString(i++),
                         rs.getString(i++),
                         rs.getString(i++),
