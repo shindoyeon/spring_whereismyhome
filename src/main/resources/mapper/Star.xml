@@ -21,7 +21,7 @@
 		where s.user_id = #{userId}
 	</select>
 	
-	<insert id="addStar" parameterType="starDto">
+	<insert id="addStar" parameterType="map">
 	insert into star (user_id, dongCode, dealYM)
 	values(#{userId},#{dongCode},#{dealYM})
 	</insert>
