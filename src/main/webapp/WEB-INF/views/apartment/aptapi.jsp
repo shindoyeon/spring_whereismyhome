@@ -42,7 +42,7 @@
               <option value="">동선택</option>
             </select>
           </div>
-          <div class="form-group col-md">
+          <!-- <div class="form-group col-md">
             <select class="form-select bg-dark text-light" id="year">
               <option value="">매매년선택</option>
             </select>
@@ -51,7 +51,7 @@
             <select class="form-select bg-dark text-light" id="month">
               <option value="">매매월선택</option>
             </select>
-          </div>
+          </div> -->
           <div class="form-group col-md">
             <input class="form-control bg-dark text-light" type="text" placeholder="아파트명" id="aptName">
           </div>
