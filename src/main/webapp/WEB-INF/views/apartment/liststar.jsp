@@ -5,7 +5,7 @@
 <c:if test="${empty userinfo}">
 	<script type="text/javascript">
 		alert("로그인 후 이용 가능한 페이지입니다.");
-		location.href = "${root}/user?act=mvlogin";
+		location.href = "${root}/user/login";
 	</script>
 </c:if>
 
@@ -41,7 +41,7 @@
 						<option value="">동선택</option>
 					</select>
 				</div>
-				<div class="form-group col-md-2">
+				<!-- <div class="form-group col-md-2">
 					<select class="form-select bg-dark text-light" name="year"
 						id="year">
 						<option value="">매매년선택</option>
@@ -52,7 +52,7 @@
 						id="month">
 						<option value="">매매월선택</option>
 					</select>
-				</div>
+				</div> -->
 				<div class="form-group col-md-2">
 					<button type="button" id="add-btn"
 						class="btn btn-outline-primary col-md-12">추가</button>
@@ -65,7 +65,7 @@
 		<div class="row">
       <div id="tablediv" class="col-md-5">
         <script type="text/javascript"
-          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=892d495e179cd940ef03591ce36ec983&libraries=services"></script>
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=40d9213eaf25e5d9bab5185da885fe33&libraries=services"></script>
         <div id="_searchresult" style="width: 100%; height: 500px; overflow: scroll;">
           <table class="table table-hover text-center " >
             <tr>
@@ -165,7 +165,7 @@
 		  let form = document.querySelector("#form-add");
 		  //console.log(form.querySelector("#dong").value);
           
-		  form.setAttribute("action", "${root}/star");
+		  form.setAttribute("action", "${root}/star/addstar");
           form.submit();
 	});
 	</script>

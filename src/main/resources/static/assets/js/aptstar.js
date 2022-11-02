@@ -2,13 +2,13 @@ var map;
 let date = new Date();
 
 window.onload = function () {
-  let yearEl = document.querySelector("#year");
-  let yearOpt = `<option value="">매매년도선택</option>`;
-  let year = date.getFullYear();
-  for (let i = year; i > year - 20; i--) {
-    yearOpt += `<option value="${i}">${i}년</option>`;
-  }
-  yearEl.innerHTML = yearOpt;
+//  let yearEl = document.querySelector("#year");
+//  let yearOpt = `<option value="">매매년도선택</option>`;
+//  let year = date.getFullYear();
+//  for (let i = year; i > year - 20; i--) {
+//    yearOpt += `<option value="${i}">${i}년</option>`;
+//  }
+//  yearEl.innerHTML = yearOpt;
   // 브라우저가 열리면 시도정보 얻기.
   sendRequest("sido", "*00000000");
 };
@@ -30,17 +30,17 @@ window.onload = function () {
 
 
 
-document.querySelector("#year").addEventListener("change", function () {
-  let month = date.getMonth() + 1;
-  let monthEl = document.querySelector("#month");
-  let monthOpt = `<option value="">매매월선택</option>`;
-  let yearSel = document.querySelector("#year");
-  let m = yearSel[yearSel.selectedIndex].value == date.getFullYear() ? month : 13;
-  for (let i = 1; i < m; i++) {
-    monthOpt += `<option value="${i < 10 ? "0" + i : i}">${i}월</option>`;
-  }
-  monthEl.innerHTML = monthOpt;
-});
+//document.querySelector("#year").addEventListener("change", function () {
+//  let month = date.getMonth() + 1;
+//  let monthEl = document.querySelector("#month");
+//  let monthOpt = `<option value="">매매월선택</option>`;
+//  let yearSel = document.querySelector("#year");
+//  let m = yearSel[yearSel.selectedIndex].value == date.getFullYear() ? month : 13;
+//  for (let i = 1; i < m; i++) {
+//    monthOpt += `<option value="${i < 10 ? "0" + i : i}">${i}월</option>`;
+//  }
+//  monthEl.innerHTML = monthOpt;
+//});
 
 
 // 시도가 바뀌면 구군정보 얻기.
@@ -160,8 +160,8 @@ stars_move.forEach(function (star_move) {
 			  hidePolylines();
 			  hideCustomOverlays();
 			  
-			  fetch(`http://localhost:8080/whereismyhome-db-15/apartment?act=search&dong=${dongCode}&DEAL_YMD=${dealYM}&aptName=`)
-			  	.then((response) => response.text())
+			  fetch(`http://localhost:80/whereismyhome-springboot-15/house/search?dongCode=${dongCode}&apartmentName=`)
+			  	.then((response) => response.json())
 			  	.then((data) => dataSet(data));
 			});
 } );
@@ -188,19 +188,19 @@ var apt_map;
 
 function drawMap(data){
 	
-  let parser = new DOMParser();
-  const xml = parser.parseFromString(data, "application/xml");
-  let apts = xml.querySelectorAll("item");
+//  let parser = new DOMParser();
+//  const xml = parser.parseFromString(data, "application/xml");
+//  let apts = xml.querySelectorAll("item");
   
   apt_map = new Map();
   
-  apts.forEach((apt)=>{
+  data.forEach((apt)=>{
     let address = "";
-    address += apt.querySelector("roadName").textContent
+    address += `${apt.roadName}`
     address += (" ")
-    address += apt.querySelector("roadNamebonbun").textContent;
-    
-    let price = apt.querySelector("dealAmount").textContent;
+    address += `${apt.roadNamebonbun}`;
+        
+    let price = `${apt.dealAmount}`;
 
     geocoder.addressSearch(address, function(result, status) {
       // 정상적으로 검색이 완료됐으면
@@ -222,14 +222,14 @@ function drawMap(data){
           markers.push(marker);
           
           
-   	   if(!apt_map.has(apt.querySelector("aptName").textContent)){
-   		   apt_map.set(apt.querySelector("aptName").textContent,1);
-   	   }
-   	   else{
-   		   apt_map.set(apt.querySelector("aptName").textContent,apt_map.get(apt.querySelector("aptName").textContent)+1);
-   	   }
+       if(!apt_map.has(`${apt.aptName}`)){
+      		apt_map.set(`${apt.aptName}`,1);
+       }
+       else{
+      		apt_map.set(`${apt.aptName}`,apt_map.get(`${apt.aptName}`)+1);
+       }
    	   //나중에 처음 생성될때만 만들고 그 다음부터는 오버레이.setContent(content)로 값 변경 하게 했으면 좋겠다.
-   	   let price_count = apt_map.get(apt.querySelector("aptName").textContent);
+       let price_count = apt_map.get(`${apt.aptName}`);
         
    	   
        // 커스텀 오버레이에 표시할 내용입니다     
@@ -261,28 +261,28 @@ let apt_info;
 
 function getList(data){
 	
-	  let parser = new DOMParser();
-	  const xml = parser.parseFromString(data, "application/xml");
-	  let apts = xml.querySelectorAll("item");
+//	  let parser = new DOMParser();
+//	  const xml = parser.parseFromString(data, "application/xml");
+//	  let apts = xml.querySelectorAll("item");
 	  
 	  set = new Set();
 	  apt_info = [];
 	  
-	  apts.forEach((apt)=>{
-	    let address = "";
-	    address += apt.querySelector("roadName").textContent
-	    address += (" ")
-	    address += apt.querySelector("roadNamebonbun").textContent;
-	    
-	    let price = apt.querySelector("dealAmount").textContent;
+	  data.forEach((apt)=>{
+		  let address = "";
+		  address += `${apt.roadName}`
+		  address += (" ")
+		  address += `${apt.roadNamebonbun}`;
+		    
+		  let price = `${apt.dealAmount}`;
 
 	    geocoder.addressSearch(address, function(result, status) {
 	      // 정상적으로 검색이 완료됐으면
 	       if (status === kakao.maps.services.Status.OK) {
 	    	   
-	    	   if(!set.has(apt.querySelector("aptName").textContent)){ // mst용
-		        	  set.add(apt.querySelector("aptName").textContent);
-		        	  apt_info.push([apt.querySelector("aptName").textContent,result[0].y, result[0].x]);
+	    	   if(!set.has(`${apt.aptName}`)){ // mst용
+		        	  set.add(`${apt.aptName}`);
+		        	  apt_info.push([`${apt.aptName}`,result[0].y, result[0].x]);
 		          }
 
 	      } 
@@ -442,38 +442,35 @@ function getDistance(lat1, lon1, lat2, lon2) {
   
 
 function makeList(data) {
-  document.querySelector("table").setAttribute("style", "display: ;");
-  let tbody = document.querySelector("#aptlist");
-  let parser = new DOMParser();
-  const xml = parser.parseFromString(data, "application/xml");
-  // console.log(xml);
-  initTable();
-  let apts = xml.querySelectorAll("item");
-  apts.forEach((apt) => {
-    let tr = document.createElement("tr");
+	document.querySelector("table").setAttribute("style", "display: ;");
+	  let tbody = document.querySelector("#aptlist");
+	  console.log("makeList");
+	  initTable();
+	  data.forEach(function(apt){
+		  let tr = document.createElement("tr");
 
-    let nameTd = document.createElement("td");
-    nameTd.appendChild(document.createTextNode(apt.querySelector("aptName").textContent));
-    tr.appendChild(nameTd);
+		    let nameTd = document.createElement("td");
+		    nameTd.appendChild(document.createTextNode(`${apt.aptName}`));
+		    tr.appendChild(nameTd);
 
-    let floorTd = document.createElement("td");
-    floorTd.appendChild(document.createTextNode(apt.querySelector("floor").textContent));
-    tr.appendChild(floorTd);
+		    let floorTd = document.createElement("td");
+		    floorTd.appendChild(document.createTextNode(`${apt.floor}`));
+		    tr.appendChild(floorTd);
 
-    let areaTd = document.createElement("td");
-    areaTd.appendChild(document.createTextNode(apt.querySelector("area").textContent));
-    tr.appendChild(areaTd);
+		    let areaTd = document.createElement("td");
+		    areaTd.appendChild(document.createTextNode(`${apt.area}`));
+		    tr.appendChild(areaTd);
 
-    let dongTd = document.createElement("td");
-    dongTd.appendChild(document.createTextNode(apt.querySelector("dongName").textContent));
-    tr.appendChild(dongTd);
-    
-    let priceTd = document.createElement("td");
-    priceTd.appendChild(document.createTextNode(apt.querySelector("dealAmount").textContent));
-    tr.appendChild(priceTd);
+		    let dongTd = document.createElement("td");
+		    dongTd.appendChild(document.createTextNode(`${apt.dongName}`));
+		    tr.appendChild(dongTd);
+		    
+		    let priceTd = document.createElement("td");
+		    priceTd.appendChild(document.createTextNode(`${apt.dealAmount}`));
+		    tr.appendChild(priceTd);
 
-    tbody.appendChild(tr);
-  });
+		    tbody.appendChild(tr);
+	  });
 }
 
 function initTable() {
