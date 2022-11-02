@@ -68,7 +68,10 @@ function sendRequest(selid, regcode) {
   const url = "https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes";
   let params = "regcode_pattern=" + regcode + "&is_ignore_zero=true";
   fetch(`${url}?${params}`)
-    .then((response) => response.json())
+    .then((response) => {
+//    	console.log(response);
+    	return response.json()
+    })
     .then((data) => addOption(selid, data));
 }
 
@@ -169,8 +172,8 @@ document.querySelector("#list-btn").addEventListener("click", function () {
   hidePolylines();
   hideCustomOverlays();
   
-  //fetch(`http://localhost:8080/whereismyhome-db-15/api?dong=${dongCode}&DEAL_YMD=${dealYM}&aptName=${aptName}`)
-  fetch(`http://localhost:8080/whereismyhome-db-15/apartment?act=search&dong=${dongCode}&DEAL_YMD=${dealYM}&aptName=${aptName}`)
+  //fetch(`http://localhost:80/whereismyhome-springboot-15/api?dong=${dongCode}&DEAL_YMD=${dealYM}&aptName=${aptName}`)
+  fetch(`http://localhost:80/whereismyhome-springboot-15/house/search?dongCode=${dongCode}&apartmentName=${aptName}`)
   	.then((response) => response.text())
   	.then((data) => dataSet(data));
 });

@@ -11,7 +11,6 @@ import com.ssafy.apartment.model.StarDto;
 import com.ssafy.apartment.model.mapper.StarMapper;
 
 @Service
-@Primary
 public class StarServiceImpl implements StarService {
 
 	private StarMapper apartmentMapper;
