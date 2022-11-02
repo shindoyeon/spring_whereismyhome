@@ -21,11 +21,11 @@
         <h1 class="h3 mb-3 fw-normal " style="text-align: center;">Log In</h1>
 
         <div class="form-floating mb-1">
-          <input type="text" class="form-control" name="userid" id="userid" placeholder="ID">
+          <input type="text" class="form-control" name="userId" id="userid" placeholder="ID">
           <label for="userid">ID</label>
         </div>
         <div class="form-floating mb-1">
-          <input type="password" class="form-control" name="userpwd" id="userpwd" placeholder="Password">
+          <input type="password" class="form-control" name="userPwd" id="userpwd" placeholder="Password">
           <label for="userpwd">Password</label>
         </div>
         <button class="w-100 btn btn-lg btn-primary mb-1" id="btn-login" type="button">Login</button>
@@ -52,7 +52,7 @@
           return;
         } else {
           let form = document.querySelector("#form-login");
-          form.setAttribute("action", "${root}/user");
+          form.setAttribute("action", "${root}/user/login");
           form.submit();
         }
       });

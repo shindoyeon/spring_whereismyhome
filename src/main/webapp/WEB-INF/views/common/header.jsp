@@ -35,7 +35,7 @@
           
           <c:if test="${userinfo.userRole eq 'admin' }">    
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="${root}/user?act=list">회원 관리</a>
+            <a class="nav-link" aria-current="page" href="${root}/user/list">회원 관리</a>
           </li>
           </c:if>
         </ul>
@@ -43,10 +43,10 @@
         <c:if test="${empty userinfo}">
         <ul class="navbar-nav me-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" id="btn-mv-join" aria-current="page" href="${root}/user?act=mvjoin">회원가입</a>
+            <a class="nav-link" id="btn-mv-join" aria-current="page" href="${root}/user/join">회원가입</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="btn-mv-login" aria-current="page" href="${root}/user?act=mvlogin">로그인</a>
+            <a class="nav-link" id="btn-mv-login" aria-current="page" href="${root}/user/login">로그인</a>
           </li>
         </ul>
         </c:if>
