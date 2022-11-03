@@ -33,7 +33,7 @@
 		  join dongcode d on hi.dongCode = d.dongCode
 		  where hi.dongCode = #{dongCode}
 		    and hi.apartmentName like concat('%', #{apartmentName}, '%')
-		    and hd.dealYear = '2022'
+		    and hd.dealYear = '2021'
 		  order by d.dongName, hi.apartmentName
 	</select>
 
